@@ -26,6 +26,7 @@ Example:
 
 After adding a new disk you want to add it to the volume group for /var
 
+```bash
 diskmkr -e -p /dev/sdb -g VGvar -l LVvar -d /var
-
+```
 
