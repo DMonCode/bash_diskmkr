@@ -16,6 +16,8 @@
 
 adisk=0
 edisk=0
+
+# Load flag data into variables to be used.
 while getopts  "hae:d:g:l:p:" flag
 do
   case $flag in
