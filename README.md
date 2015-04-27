@@ -14,13 +14,13 @@ This script is not structured around using partial disks.
 Usage
 ----
 
- - h  Display Help
- - a  Add disk [Currently not working: This is a future thought that I haven't gotten around to]
- - e  Extend disk
- - d  Directory you will mount the disk to. [Currently disabled: I tend to use puppet to ensure the actual mount.]
- - g  Volume Group (VG) that disk will be added to.
- - l  Logical Volume (LV) that will be extended
- - p  Physical Volume (PV) that will be added
+ - h =  Display Help
+ - a = Add disk [Currently not working: This is a future thought that I haven't gotten around to]
+ - e = Extend disk
+ - d = Directory you will mount the disk to. [Currently disabled: I tend to use puppet to ensure the actual mount.]
+ - g = Volume Group (VG) that disk will be added to.
+ - l = Logical Volume (LV) that will be extended
+ - p = Physical Volume (PV) that will be added
 
 Example:
 
