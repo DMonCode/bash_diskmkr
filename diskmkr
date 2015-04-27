@@ -1,0 +1,82 @@
+#!/bin/bash
+
+# -h = display help info
+# -a = add disk
+# -e = extend disk
+# -d = directory
+# -g = vg 
+# -l = lv
+# -p = pv
+
+# Set Variables from flags
+
+adisk=0
+edisk=0
+while getopts  "hae:d:g:l:p:" flag
+do
+  case $flag in
+    h) echo "help!!!"
+        ;;
+    a) adisk=1
+       if [ $edisk -eq 0]
+       then
+         echo "Add disk"
+         else
+           echo "ERROR: you cannot add a disk and extend a disk"
+       fi
+       ;;
+    e) edisk=1
+       if [$adisk -eq 0]
+       then
+         echo "Extend disk"
+       else
+         echo "ERROR: you cannot add a disk and extend a disk"
+       fi
+       ;;
+    d) dir=$OPTARG
+       ;;
+    g) vg=$OPTARG
+       ;;
+    l) lv=$OPTARG
+       ;;
+    p) pv=$OPTARG
+       ;;
+    *) echo "you missed it! HELP!"
+       ;;
+  esac
+done
+
+echo -e "n\np\n1\n\n\nt\n8e\nw" | fdisk -H 224 -S 56 -cu ${pv}
+wait
+pvcreate ${pv}1
+wait
+sleep 3
+wait
+vgcreate ${vg} ${pv}1
+wait
+extent=`pvdisplay ${pv}1|grep "Free PE"|awk '{print($3)}'`
+if [ $extent ]
+then
+    if [ $extent -eq 0 ]
+    then
+        echo "## Extents: not set ##"
+        exit
+    else
+        echo "## Extents: ${extent} ##"
+    fi
+else
+    echo "## Extents: not set ##"
+    exit
+fi
+
+sleep 5
+lvcreate -l 100%VG -n ${lv} ${vg}
+wait
+mkfs.ext4 -O extent,uninit_bg,dir_index /dev/${vg}/${lv}
+wait
+tune2fs -c0 -i0 -e continue /dev/${vg}/${lv}
+wait
+
+#echo "/dev/mapper/${vg}-${lv}    /srv    ext4    noatime   0 0" >> /etc/fstab
+
+
