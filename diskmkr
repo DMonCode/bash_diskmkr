@@ -1,4 +1,8 @@
 #!/bin/bash
+# Rough pass at adding LV to system.
+# This expects to add to existing disk.
+# Currently it grabs exact extents of the disk that are available.
+# Other option is to add disk based off percentage.
 
 # -h = display help info
 # -a = add disk
@@ -54,22 +58,28 @@ sleep 3
 wait
 vgcreate ${vg} ${pv}1
 wait
+
+#
+# This is an unneccissary step. You already changed code to 
+# Increase disk size based of percentage.
+#
 extent=`pvdisplay ${pv}1|grep "Free PE"|awk '{print($3)}'`
 if [ $extent ]
 then
     if [ $extent -eq 0 ]
     then
         echo "## Extents: not set ##"
-        exit
+        exit 1
     else
         echo "## Extents: ${extent} ##"
     fi
 else
     echo "## Extents: not set ##"
-    exit
+    exit 1
 fi
 
 sleep 5
+
 lvcreate -l 100%VG -n ${lv} ${vg}
 wait
 mkfs.ext4 -O extent,uninit_bg,dir_index /dev/${vg}/${lv}
