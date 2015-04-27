@@ -3,11 +3,23 @@
 Disk Maker
 ==========
 
+This is BETA.
+You should probably not use this with out testing it first
+I use it for a particular use case.
+It works for that use case.
+I make no gurantee it will work for your use case. 
+
+Echoing to fdisk is fun.
+But it is beta so be careful.
+
+-----------------------
+
+
 Bask disk maker is a simple script that:
 
-1: Takes a new drive and adds it to the volume group.
-2: Resizes logical volume to take up full size of disk
-3: Resizes file system to make use of new space.
+#: Takes a new drive and adds it to the volume group.
+#: Resizes logical volume to take up full size of disk
+#: Resizes file system to make use of new space.
 
 This script is not structured around using partial disks.
 
