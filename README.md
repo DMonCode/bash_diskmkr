@@ -17,9 +17,9 @@ But it is beta so be careful.
 
 Bask disk maker is a simple script that:
 
-#: Takes a new drive and adds it to the volume group.
-#: Resizes logical volume to take up full size of disk
-#: Resizes file system to make use of new space.
+1. Takes a new drive and adds it to the volume group.
+2. Resizes logical volume to take up full size of disk
+3. Resizes file system to make use of new space.
 
 This script is not structured around using partial disks.
 
